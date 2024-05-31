@@ -161,13 +161,41 @@ int main() {
     int iterations9 = 4;
     float angle9 = 90.0f;
 
-    // Example 10: Hexagonal Gosper Curve
-    std::string axiom10 = "A";
+    // // Example 10: Hexagonal Gosper Curve
+    // std::string axiom10 = "A";
+    // std::unordered_map<std::string, std::vector<std::pair<std::string, float>>> rules10;
+    // rules10["A"] = {{"A-B--B+A++AA+B-", 1.0f}};
+    // rules10["B"] = {{"+A-BB--B-A++A+B", 1.0f}};
+    // int iterations10 = 4;
+    // float angle10 = 60.0f;
+
+    // std::string axiom10 = "A";
+    // std::unordered_map<std::string, std::vector<std::pair<std::string, float>>> rules10;
+    // rules10["A"] = {{"A+B++B-A--AA-B+", 1.0f}};
+    // rules10["B"] = {{"-A+BB++B+A--A-B", 1.0f}};
+    // int iterations10 = 1;
+    // float angle10 = 60.0f;
+
+
+// n=4, δ=60◦
+// Fl 
+// Fl→Fl+Fr++Fr-Fl--FlFl-Fr+ 
+// Fr →-Fl +Fr Fr ++Fr +Fl --Fl -Fr
+
+
+    std::string axiom10 = "-B";
     std::unordered_map<std::string, std::vector<std::pair<std::string, float>>> rules10;
-    rules10["A"] = {{"A-B--B+A++AA+B-", 1.0f}};
-    rules10["B"] = {{"+A-BB--B-A++A+B", 1.0f}};
-    int iterations10 = 4;
-    float angle10 = 60.0f;
+    rules10["A"] = {{"AA-B-B+A+A-B-BA+B+AAB-A+B+AA+B-AB-B-A+A+BB-", 1.0f}};
+    rules10["B"] = {{"+AA-B-B+A+AB+A-BB-A-B+ABB-A-BA+A+B-B-A+A+BB", 1.0f}};
+    int iterations10 = 1;
+    float angle10 = 90.0f;
+
+// n=2, δ=90◦
+// -Fr 
+// A→AA-B-B+A+A-B-BA+B+AAB-A+B+AA+B-AB-B-A+A+BB- 
+// B→+AA-B-B+A+AB+A-BB-A-B+ABB-A- BA+A+B-B-A+A+BB
+
+
 
     // Example 11: Stochastic Fractal Plant
     std::string axiom11 = "X";
@@ -223,13 +251,13 @@ int main() {
     // axiom = axiom6; rules = rules6; iterations = iterations6; angle = angle6; // Hilbert Curve
     // axiom = axiom7; rules = rules7; iterations = iterations7; angle = angle7; // Peano Curve
     // axiom = axiom8; rules = rules8; iterations = iterations8; angle = angle8; // Levy C Curve
-    // axiom = axiom9; rules = rules9; iterations = iterations9; angle = angle9; // Cross Curve
-    // axiom = axiom10; rules = rules10; iterations = iterations10; angle = angle10; // Hexagonal Gosper Curve
+    //axiom = axiom9; rules = rules9; iterations = iterations9; angle = angle9; // Cross Curve
+  //   axiom = axiom10; rules = rules10; iterations = iterations10; angle = angle10; // Hexagonal Gosper Curve    marche pas 
     // axiom = axiom11; rules = rules11; iterations = iterations11; angle = angle11; // Stochastic Fractal Plant
     axiom = axiom12; rules = rules12; iterations = iterations12+2; angle = angle12; // Stochastic Simple Bush
-    // axiom = axiom13; rules = rules13; iterations = iterations13; angle = angle13; // Stochastic Plant
+    // axiom = axiom13; rules = rules13; iterations = iterations13+1; angle = angle13; // Stochastic Plant
     // axiom = axiom14; rules = rules14; iterations = iterations14; angle = angle14; // Stochastic Dragon Curve
-    // axiom = axiom15; rules = rules15; iterations = iterations15; angle = angle15; // Stochastic Sierpinski Triangle
+   // axiom = axiom15; rules = rules15; iterations = iterations15; angle = angle15; // Stochastic Sierpinski Triangle
 
     // Generate the L-System string
     std::string result = generateLSystem(axiom, rules, iterations);

@@ -13,16 +13,25 @@ std::string applyRules(const std::string& current, const std::unordered_map<std:
     std::random_device rd;
     std::mt19937 gen(rd());
     
-    for (size_t i = 0; i < current.size(); ++i) {
-        std::string symbol(1, current[i]);
+    for (char ch : current) {
+        std::string symbol(1, ch);
         if (rules.find(symbol) != rules.end()) {
             const auto& ruleSet = rules.at(symbol);
-            std::vector<float> probabilities;
+            float totalProbability = 0;
             for (const auto& rule : ruleSet) {
-                probabilities.push_back(rule.second);
+                totalProbability += rule.second;
             }
-            std::discrete_distribution<> dist(probabilities.begin(), probabilities.end());
-            next += ruleSet[dist(gen)].first;
+            std::uniform_real_distribution<> dist(0.0, totalProbability);
+            float randomValue = dist(gen);
+
+            float cumulativeProbability = 0;
+            for (const auto& rule : ruleSet) {
+                cumulativeProbability += rule.second;
+                if (randomValue <= cumulativeProbability) {
+                    next += rule.first;
+                    break;
+                }
+            }
         } else {
             next += symbol;
         }

@@ -96,11 +96,44 @@ void drawLSystem(sf::RenderWindow& window, const std::string& lSystem, float ang
             positionStack.pop();
             currentAngle = angleStack.top();
             angleStack.pop();
+        } else if (ch == 'O') { // Draw a fruit or sphere
+            sf::CircleShape fruit(3); // Radius of 5
+            fruit.setFillColor(sf::Color::Magenta); // Set fruit color to red
+            fruit.setPosition(position);
+            window.draw(fruit);
         }
     }
 
     window.display();
 }
+
+// int main() {
+//     sf::RenderWindow window(sf::VideoMode(800, 600), "L-System with Fruits");
+
+//     std::string axiom = "F";
+//     std::unordered_map<std::string, std::vector<std::pair<std::string, float>>> rules;
+//     rules["F"] = { {"F+F-F-OF+F", 1.0} }; // Modified rule to include 'O' at the end of some branches
+
+//     int iterations = 4;
+//     float angle = 90.0f;
+//     float length = 10.0f;
+//     sf::Vector2f offset(0.0f, 0.0f);
+
+//     std::string lSystem = generateLSystem(axiom, rules, iterations);
+//     while (window.isOpen()) {
+//         sf::Event event;
+//         while (window.pollEvent(event)) {
+//             if (event.type == sf::Event::Closed) {
+//                 window.close();
+//             }
+//         }
+
+//         drawLSystem(window, lSystem, angle, length, offset);
+//     }
+
+//     return 0;
+// }
+
 
 int main() {
     // Example 1: Classic Fractal Plant
@@ -224,7 +257,7 @@ int main() {
     // Example 13: Stochastic Plant
     std::string axiom13 = "X";
     std::unordered_map<std::string, std::vector<std::pair<std::string, float>>> rules13;
-    rules13["X"] = {{"F[+X][-X]FX", 0.33f}, {"F[-X][+X]FX", 0.33f}, {"F[+X]F[-X]", 0.34f}};
+    rules13["X"] = {{"F[+X][-X]FX", 0.33f}, {"F[-X][+X]FXO", 0.33f}, {"F[+X]F[-X]", 0.34f}};
     rules13["F"] = {{"FF", 1.0f}};
     int iterations13 = 5;
     float angle13 = 25.0f;
@@ -253,9 +286,9 @@ int main() {
 
     // Uncomment the desired L-system
      //axiom = axiom1; rules = rules1; iterations = iterations1; angle = angle1; // Classic Fractal Plant
-    // axiom = axiom2; rules = rules2; iterations = iterations2; angle = angle2; // Simple Bush
+    // axiom = axiom2; rules = rules2; iterations = 2; angle = angle2; // Simple Bush
     // axiom = axiom3; rules = rules3; iterations = iterations3; angle = angle3; // Dragon Curve
-   // axiom = axiom4; rules = rules4; iterations = iterations4; angle = angle4; // Sierpinski Triangle
+  //  axiom = axiom4; rules = rules4; iterations = iterations4; angle = angle4; // Sierpinski Triangle
     // axiom = axiom5; rules = rules5; iterations = iterations5; angle = angle5; // Koch Curve
     // axiom = axiom6; rules = rules6; iterations = iterations6; angle = angle6; // Hilbert Curve
     // axiom = axiom7; rules = rules7; iterations = iterations7; angle = angle7; // Peano Curve
@@ -263,8 +296,8 @@ int main() {
     //axiom = axiom9; rules = rules9; iterations = iterations9; angle = angle9; // Cross Curve
   //   axiom = axiom10; rules = rules10; iterations = iterations10; angle = angle10; // Hexagonal Gosper Curve    marche pas 
     // axiom = axiom11; rules = rules11; iterations = iterations11; angle = angle11; // Stochastic Fractal Plant
-    axiom = axiom12; rules = rules12; iterations = iterations12+2; angle = angle12; // Stochastic Simple Bush
-    // axiom = axiom13; rules = rules13; iterations = iterations13+1; angle = angle13; // Stochastic Plant
+    //axiom = axiom12; rules = rules12; iterations = iterations12+2; angle = angle12; // Stochastic Simple Bush
+     axiom = axiom13; rules = rules13; iterations = iterations13+1; angle = angle13; // Stochastic Plant
     // axiom = axiom14; rules = rules14; iterations = iterations14; angle = angle14; // Stochastic Dragon Curve
    // axiom = axiom15; rules = rules15; iterations = iterations15; angle = angle15; // Stochastic Sierpinski Triangle
 
@@ -288,3 +321,6 @@ int main() {
     }
     return 0;
 }
+
+
+

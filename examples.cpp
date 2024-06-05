@@ -1,13 +1,55 @@
 #include "examples.hpp"
 
 // Example 1: Classic Fractal Plant
-std::string axiom1 = "X";
-std::unordered_map<std::string, std::vector<std::pair<std::string, float>>> rules1 = {
+std::string axiom111 = "X";
+std::unordered_map<std::string, std::vector<std::pair<std::string, float>>> rules111 = {
     {"X", {{"F[+X]F[-X]+X", 1.0f}}},
     {"F", {{"FF", 1.0f}}}
 };
-int iterations1 = 6;
-float angle1 = 25.0f;
+int iterations111 = 6;
+float angle111 = 20.0f;
+
+
+// Define the L-system rules for a sympodial tree
+std::string axiom1 = "A(1,10)";
+std::unordered_map<std::string, std::vector<std::pair<std::string, float>>> rules1 = {
+    {"A", {{"!(w)F(l)[&(a1)B(l*r1,w*wr)]/(180)[&(a2)B(l*r2,w*wr)]", 1.0f}}},
+    {"B", {{"!(w)F(l)[+(a1)$B(l*r1,w*wr)][-(a2)$B(l*r2,w*wr)]", 1.0f}}}
+};
+
+// Parameters
+#define r1 0.9
+#define r2 0.7
+#define a1 10
+#define a2 60
+#define wr 0.707
+
+int iterations1 = 5;
+float angle1 = 22.5f;
+
+
+
+
+
+
+// Example 100: symetrical Plant   e page 37
+std::string axiom100 = "X";
+std::unordered_map<std::string, std::vector<std::pair<std::string, float>>> rules100 = {
+    //{"X", {{"F[+X][-X]FX", 1.0f}}},
+    {"X", {{"F-[[X]+X]+F[+FX]-X", 1.0f}}},
+
+    {"F", {{"FF", 1.0f}}}
+};
+int iterations100 = 6;
+float angle100 = 25.0f;
+
+// std::string axiom1 = "X";
+// std::unordered_map<std::string, std::vector<std::pair<std::string, float>>> rules1 = {
+//     {"X", {{"F-[[X]+X]+F[+FX]-X", 1.0f}}},
+//     {"F", {{"FF", 1.0f}}}
+// };
+// int iterations1 = 5;
+// float angle1 = 25.0f;
 
 // Example 2: Simple Bush
 std::string axiom2 = "F";
@@ -146,6 +188,7 @@ std::string getAxiom(int example) {
         case 13: return axiom13;
         case 14: return axiom14;
         case 15: return axiom15;
+        case 100: return axiom100;
         default: return "";
     }
 }
@@ -167,6 +210,7 @@ std::unordered_map<std::string, std::vector<std::pair<std::string, float>>> getR
         case 13: return rules13;
         case 14: return rules14;
         case 15: return rules15;
+        case 100: return rules100;
         default: return std::unordered_map<std::string, std::vector<std::pair<std::string, float>>>();
     }
 }
@@ -188,6 +232,7 @@ int getIterations(int example) {
         case 13: return iterations13;
         case 14: return iterations14;
         case 15: return iterations15;
+        case 100: return iterations100;
         default: return 0;
     }
 }
@@ -209,6 +254,8 @@ float getAngle(int example) {
         case 13: return angle13;
         case 14: return angle14;
         case 15: return angle15;
+        case 100: return angle100;
+
         default: return 0.0f;
     }
 }

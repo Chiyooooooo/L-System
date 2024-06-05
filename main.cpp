@@ -121,15 +121,16 @@ void drawLSystem(sf::RenderWindow& window, const std::string& lSystem, float ang
         } else if (ch == '[') {
             positionStack.push(position);
             angleStack.push(currentAngle);
-            //thicknessStack.push(thickness);
-            //thickness *= 0.7; // Decrease thickness for branches
+            thicknessStack.push(thickness);
+            thickness = std::max(thickness - 1, 1.0f); 
+            //thickness -= 1; // Decrease thickness for branches
         } else if (ch == ']') {
             position = positionStack.top();
             positionStack.pop();
             currentAngle = angleStack.top();
             angleStack.pop();
-           // thickness = thicknessStack.top();
-           // thicknessStack.pop();
+            thickness = thicknessStack.top();
+            thicknessStack.pop();
         } else if (ch == 'O') { // Draw a fruit or sphere
             sf::CircleShape fruit(3); // Radius of 3
             fruit.setFillColor(sf::Color::Magenta); // Set fruit color to magenta
@@ -142,10 +143,10 @@ void drawLSystem(sf::RenderWindow& window, const std::string& lSystem, float ang
 }
 
 int main() {
-    int exampleNumber = 12; // Example number to use
+    int exampleNumber = 100; // Example number to use
     std::string axiom = getAxiom(exampleNumber);
     auto rules = getRules(exampleNumber);
-    int iterations = getIterations(exampleNumber) + 1;
+    int iterations = getIterations(exampleNumber) ;
     float angle = getAngle(exampleNumber);
 
     // Generate the L-System string
@@ -153,7 +154,7 @@ int main() {
 
     sf::RenderWindow window(sf::VideoMode(1000, 1000), "L-System with Larger Base Tree");
     sf::Vector2f offset(0.0f, 400.0f);
-    float initialThickness = 1.0f; // Initial thickness of the base tree
+    float initialThickness = iterations -2; // Initial thickness of the base tree
 
     while (window.isOpen()) {
         sf::Event event;

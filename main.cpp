@@ -7,38 +7,11 @@
 #include <cmath>
 #include <stack>
 #include <random>
+#include <fstream>
+
+
 #include "examples.hpp"
 
-// Function to apply rules
-// std::string applyRules(const std::string& current, const std::unordered_map<std::string, std::vector<std::pair<std::string, float>>>& rules) {
-//     std::string next;
-//     std::random_device rd;
-//     std::mt19937 gen(rd());
-    
-//     for (char ch : current) {
-//         if (rules.find(std::string(1, ch)) != rules.end()) {
-//             const auto& ruleSet = rules.at(std::string(1, ch));
-//             float totalProbability = 0;
-//             for (const auto& rule : ruleSet) {
-//                 totalProbability += rule.second;
-//             }
-//             std::uniform_real_distribution<> dist(0.0, totalProbability);
-//             float randomValue = dist(gen);
-
-//             float cumulativeProbability = 0;
-//             for (const auto& rule : ruleSet) {
-//                 cumulativeProbability += rule.second;
-//                 if (randomValue <= cumulativeProbability) {
-//                     next += rule.first;
-//                     break;
-//                 }
-//             }
-//         } else {
-//             next += ch;
-//         }
-//     }
-//     return next;
-// }
 
 std::string applyRules(const std::string& current, const std::unordered_map<std::string, std::vector<std::pair<std::string, float>>>& rules) {
     std::string next;
@@ -71,8 +44,6 @@ std::string applyRules(const std::string& current, const std::unordered_map<std:
     }
     return next;
 }
-
-
 
 
 // Function to generate an L-System string
@@ -122,7 +93,7 @@ void drawLSystem(sf::RenderWindow& window, const std::string& lSystem, float ang
             positionStack.push(position);
             angleStack.push(currentAngle);
             thicknessStack.push(thickness);
-            thickness = std::max(thickness - 1, 1.0f); 
+            thickness = std::max(thickness - 1, 2.0f); 
             //thickness -= 1; // Decrease thickness for branches
         } else if (ch == ']') {
             position = positionStack.top();
@@ -138,12 +109,11 @@ void drawLSystem(sf::RenderWindow& window, const std::string& lSystem, float ang
             window.draw(fruit);
         }
     }
-
     window.display();
 }
 
 int main() {
-    int exampleNumber = 100; // Example number to use
+    int exampleNumber = 25; // Example number to use
     std::string axiom = getAxiom(exampleNumber);
     auto rules = getRules(exampleNumber);
     int iterations = getIterations(exampleNumber) ;
@@ -154,7 +124,12 @@ int main() {
 
     sf::RenderWindow window(sf::VideoMode(1000, 1000), "L-System with Larger Base Tree");
     sf::Vector2f offset(0.0f, 400.0f);
-    float initialThickness = iterations -2; // Initial thickness of the base tree
+    float initialThickness = 2 ; // Initial thickness of the base tree
+
+
+    std::ofstream outFile("lsystem.txt");
+    outFile << result;
+    outFile.close();
 
     while (window.isOpen()) {
         sf::Event event;
@@ -163,8 +138,10 @@ int main() {
                 window.close();
             }
         }
-        drawLSystem(window, result, angle, 5.0f, offset, initialThickness);
+        drawLSystem(window, result, angle, 10.0f, offset, initialThickness);
     }
+
+
 
     return 0;
 }
